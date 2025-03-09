@@ -29,7 +29,7 @@
 Pasang **pm-js** melalui npm:
 
 ```bash
-npm install pm-js
+npm install @danydev/pm-js
 ```
 
 ## Penggunaan
@@ -41,7 +41,7 @@ Berikut contoh penggunaan dasar untuk masing-masing metode:
 Mengambil data dari URL tertentu:
 
 ```javascript
-const pm = require('pm-js');
+const pm = require('@danydev/pm-js');
 
 pm.get('https://jsonplaceholder.typicode.com/todos/1', (data) => {
   console.log('GET Response:', data);
@@ -53,7 +53,7 @@ pm.get('https://jsonplaceholder.typicode.com/todos/1', (data) => {
 Mengirim data ke server:
 
 ```javascript
-const pm = require('pm-js');
+const pm = require('@danydev/pm-js');
 
 const newPost = {
   title: 'Hello World',
@@ -71,7 +71,7 @@ pm.post('https://jsonplaceholder.typicode.com/posts', newPost, (data, res) => {
 Memperbarui resource yang sudah ada:
 
 ```javascript
-const pm = require('pm-js');
+const pm = require('@danydev/pm-js');
 
 const updatedData = {
   title: 'Updated Title'
@@ -91,7 +91,7 @@ pm.put('https://jsonplaceholder.typicode.com/posts/1', updatedData, (err, data) 
 Menghapus resource:
 
 ```javascript
-const pm = require('pm-js');
+const pm = require('@danydev/pm-js');
 
 pm.del('https://jsonplaceholder.typicode.com/posts/1', (err, data) => {
   if (err) {
@@ -166,7 +166,7 @@ pm.del('https://example.com/api/1', (err, data) => {
 
 ## Kontribusi
 
-Kontribusi sangat diterima! Jika kamu memiliki saran, perbaikan bug, atau ingin menambahkan fitur baru, silakan buat issue atau pull request. Pastikan untuk mengikuti panduan gaya kode dan menambahkan dokumentasi untuk fitur baru.
+Kontribusi sangat diterima! Jika kamu memiliki saran, perbaikan bug, atau ingin menambahkan fitur baru, silakan buat issue atau pull request. Pastikan untuk mengikuti panduan gaya kode dan menambahkan [dokumentasi](https://github.com/Uservpr/pm-js) untuk fitur baru.
 
 ## Lisensi
 

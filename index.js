@@ -1,5 +1,4 @@
 const axios = require('axios');
-const readline = require('readline');
 
 // Fungsi GET
 const Get = async (url, callBack) => {
@@ -88,15 +87,4 @@ const del = async (url, callBack) => {
     }
 };
 
-// Fungsi utama
-async function main() {
-    try {
-        const todos = await Get('https://jsonplaceholder.typicode.com/todos');
-        console.log(todos);
-    } catch (error) {
-        console.error('Error in main function:', error);
-    }
-}
-
-// Menjalankan fungsi utama
-main();
+module.exports = { Get, post, put, del };
