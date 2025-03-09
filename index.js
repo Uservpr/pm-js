@@ -1,11 +1,17 @@
 const axios = require('axios');
 const readline = require('readline');
 
-
-const Get = async (url) => {
+// Fungsi GET
+const Get = async (url, callBack) => {
     try {
         const response = await axios.get(url);
-        return response.data;
+        const data = response.data;
+
+        if (callBack) {
+            callBack(data);
+        }
+
+        return data;
     } catch (error) {
         console.error('Error during GET request:', error);
         throw error;
@@ -13,10 +19,25 @@ const Get = async (url) => {
 };
 
 // Fungsi POST
-const post = async (url, data) => {
+const post = async (url, dataOrCallback, callback) => {
+    let data;
+
+    if (typeof dataOrCallback === 'function') {
+        callback = dataOrCallback;
+        data = {};
+    } else {
+        data = dataOrCallback;
+    }
+
     try {
         const response = await axios.post(url, data);
-        return response.data;
+        const responseData = response.data;
+
+        if (callback) {
+            callback(responseData, response);
+        }
+
+        return responseData;
     } catch (error) {
         console.error('Error during POST request:', error);
         throw error;
@@ -24,52 +45,58 @@ const post = async (url, data) => {
 };
 
 // Fungsi PUT
-const put = async (url, data) => {
+const put = async (url, data, callBack) => {
     try {
         const response = await axios.put(url, data);
-        return response.data;
+        const responseData = response.data;
+
+        if (callBack) {
+            callBack(null, responseData);
+        }
+
+        return responseData;
     } catch (error) {
         console.error('Error during PUT request:', error);
+        
+        if (callBack) {
+            callBack(error, null);
+        }
+
         throw error;
     }
 };
 
 // Fungsi DELETE
-const del = async (url) => {
+const del = async (url, callBack) => {
     try {
         const response = await axios.delete(url);
-        return response.data;
+        const responseData = response.data;
+
+        if (callBack) {
+            callBack(null, responseData);
+        }
+
+        return responseData;
     } catch (error) {
         console.error('Error during DELETE request:', error);
+        
+        if (callBack) {
+            callBack(error, null);
+        }
+
         throw error;
     }
 };
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
 
-function askQuestion(query) {
-    return new Promise(resolve => rl.question(query, resolve));
-}
-
+// Fungsi utama
 async function main() {
-
-  // Minta method
-  const method = await askQuestion("Method [GET/POST/PUT/DEL]: ");
-  // Minta url
-  const url = await askQuestion("URL:  ");
-    
-    if (method === "GET") {
-      const data = await Get(URL)
-    } else if (method === "POST") {
-      const data = await post(URL)
-    } else if (method === "PUT") {
-      const data = await put(URL)
-    } else if (method === "DEL") {
-      const data = await del(URL)
+    try {
+        const todos = await Get('https://jsonplaceholder.typicode.com/todos');
+        console.log(todos);
+    } catch (error) {
+        console.error('Error in main function:', error);
     }
-  console.log(data)
-    rl.close();
 }
-main()
+
+// Menjalankan fungsi utama
+main();
