@@ -1,44 +1,82 @@
 # pm-js
 
-**pm-js** adalah library minimalis untuk mempermudah operasi CRUD (Create, Read, Update, Delete) menggunakan HTTP request di Node.js. Dibangun sebagai alternatif ringan dari aplikasi Postman, library ini memungkinkan kamu untuk berinteraksi dengan API dengan kode yang singkat dan jelas.
+**pm-js** is a minimalist library designed to simplify CRUD (Create, Read, Update, Delete) operations using HTTP requests in Node.js. Built as a lightweight alternative to Postman, this library allows you to interact with APIs using concise and clear code.
 
-## Daftar Isi
+## Table of Contents
 
-- [Fitur](#fitur)
-- [Instalasi](#instalasi)
-- [Penggunaan](#penggunaan)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [CLI Mode](#cli-mode)
   - [GET Request](#get-request)
   - [POST Request](#post-request)
   - [PUT Request](#put-request)
   - [DELETE Request](#delete-request)
-- [Dokumentasi API](#dokumentasi-api)
-- [Contoh Penggunaan](#contoh-penggunaan)
-- [Kontribusi](#kontribusi)
-- [Lisensi](#lisensi)
+- [API Documentation](#api-documentation)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Fitur
+## Features
 
-- **Kesederhanaan**: Mengurangi boilerplate code untuk operasi CRUD.
-- **Ringan**: Dibangun di atas axios untuk performa yang cepat.
-- **Fleksibel**: Mudah dikembangkan untuk mendukung metode HTTP lainnya di versi selanjutnya.
-- **Callback Friendly**: Mendukung callback untuk memproses respon dan error.
-- **Pengembangan Berkelanjutan**: Fitur tambahan seperti CLI mode akan ditambahkan di masa mendatang.
+- **Simplicity**: Reduces boilerplate code for CRUD operations.
+- **Lightweight**: Built on top of Axios for fast performance.
+- **CLI Mode**: Execute HTTP requests directly from the terminal.
+- **Save Response**: Save the request results to a JSON file using `-s file.json`.
+- **Pretty Response**: Output the request results in a more readable format.
 
-## Instalasi
+## Installation
 
-Pasang **pm-js** melalui npm:
+Install pm-js via npm:
 
 ```bash
 npm install @danydev/pm-js
 ```
 
-## Penggunaan
+## Usage
 
-Berikut contoh penggunaan dasar untuk masing-masing metode:
+### CLI Mode
 
-### GET Request
+Now pm-js can be used directly from the terminal!
 
-Mengambil data dari URL tertentu:
+#### Display Help
+
+```bash
+node cli_mode/index.js -help
+```
+
+#### Perform GET Request
+
+```bash
+node cli_mode/index.js -get https://jsonplaceholder.typicode.com/posts/1
+```
+
+#### Perform POST Request
+
+```bash
+node cli_mode/index.js -post https://jsonplaceholder.typicode.com/posts -d '{"title": "Hello", "body": "World"}'
+```
+
+#### Perform PUT Request
+
+```bash
+node cli_mode/index.js -put https://jsonplaceholder.typicode.com/posts/1 -d '{"title": "Updated"}'
+```
+
+#### Perform DELETE Request
+
+```bash
+node cli_mode/index.js -del https://jsonplaceholder.typicode.com/posts/1
+```
+
+#### Save Response to JSON File
+
+```bash
+node cli_mode/index.js -get https://jsonplaceholder.typicode.com/posts/1 -s result.json
+```
+
+---
+
+### GET Request (In JavaScript Code)
 
 ```javascript
 const pm = require('@danydev/pm-js');
@@ -49,8 +87,6 @@ pm.get('https://jsonplaceholder.typicode.com/todos/1', (data) => {
 ```
 
 ### POST Request
-
-Mengirim data ke server:
 
 ```javascript
 const pm = require('@danydev/pm-js');
@@ -66,108 +102,42 @@ pm.post('https://jsonplaceholder.typicode.com/posts', newPost, (data, res) => {
 });
 ```
 
-### PUT Request
+## API Documentation
 
-Memperbarui resource yang sudah ada:
+### `pm.get(url, callback)`
 
-```javascript
-const pm = require('@danydev/pm-js');
+**Parameters:**
 
-const updatedData = {
-  title: 'Updated Title'
-};
+- `url` (String): The URL to send the GET request to.
+- `callback` (Function): A callback function that receives the response data.
 
-pm.put('https://jsonplaceholder.typicode.com/posts/1', updatedData, (err, data) => {
-  if (err) {
-    console.error('PUT Error:', err);
-  } else {
-    console.log('PUT Response:', data);
-  }
-});
-```
+### `pm.post(url, data, callback)`
 
-### DELETE Request
+**Parameters:**
 
-Menghapus resource:
+- `url` (String): The URL to send the POST request to.
+- `data` (Object): The payload sent to the server.
+- `callback` (Function): A callback function that receives the data and response.
 
-```javascript
-const pm = require('@danydev/pm-js');
+### `pm.put(url, data, callback)`
 
-pm.del('https://jsonplaceholder.typicode.com/posts/1', (err, data) => {
-  if (err) {
-    console.error('DELETE Error:', err);
-  } else {
-    console.log('DELETE Response:', data);
-  }
-});
-```
+**Parameters:**
 
-## Dokumentasi API
+- `url` (String): The URL to send the PUT request to.
+- `data` (Object): The data to be updated.
+- `callback` (Function): A callback function that receives an error (if any) and the response data.
 
-### pm.get(url, callback)
+### `pm.del(url, callback)`
 
-- **Parameter**:
-  - `url` (String): URL yang dituju untuk request GET.
-  - `callback` (Function): Fungsi callback yang menerima data respon.
+**Parameters:**
 
-**Contoh Penggunaan**:
+- `url` (String): The URL to send the DELETE request to.
+- `callback` (Function): A callback function that receives an error (if any) and the response data.
 
-```javascript
-pm.get('https://example.com/api', (data) => { 
-  console.log(data); 
-});
-```
+## Contributing
 
-### pm.post(url, data, callback)
+Contributions are welcome! If you have suggestions, bug fixes, or want to add new features, please create an issue or pull request.
 
-- **Parameter**:
-  - `url` (String): URL yang dituju untuk request POST.
-  - `data` (Object): Payload yang dikirim ke server.
-  - `callback` (Function): Fungsi callback yang menerima data dan respon.
+## License
 
-**Contoh Penggunaan**:
-
-```javascript
-pm.post('https://example.com/api', { key: 'value' }, (data, res) => {
-  console.log(data);
-});
-```
-
-### pm.put(url, data, callback)
-
-- **Parameter**:
-  - `url` (String): URL yang dituju untuk request PUT.
-  - `data` (Object): Data yang akan diperbarui.
-  - `callback` (Function): Fungsi callback yang menerima error (jika ada) dan data respon.
-
-**Contoh Penggunaan**:
-
-```javascript
-pm.put('https://example.com/api/1', { key: 'new value' }, (err, data) => {
-  if (err) console.error(err);
-  else console.log(data);
-});
-```
-
-### pm.del(url, callback)
-
-- **Parameter**:
-  - `url` (String): URL untuk request DELETE.
-  - `callback` (Function): Fungsi callback yang menerima error (jika ada) dan data respon.
-
-**Contoh Penggunaan**:
-
-```javascript
-pm.del('https://example.com/api/1', (err, data) => {
-  if (err) console.error(err);
-  else console.log('Deleted', data);
-});
-```
-
-## Kontribusi
-
-Kontribusi sangat diterima! Jika kamu memiliki saran, perbaikan bug, atau ingin menambahkan fitur baru, silakan buat issue atau pull request. Pastikan untuk mengikuti panduan gaya kode dan menambahkan [dokumentasi](https://github.com/Uservpr/pm-js) untuk fitur baru.
-
-## Lisensi
-
-Project ini dilisensikan di bawah Lisensi ISC.
+This project is licensed under the ISC License.

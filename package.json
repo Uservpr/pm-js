@@ -9,6 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bin": {
+    "pm": "./cli_mode/start.js"
+  },
   "dependencies": {
     "axios": "^1.7.9"
   }
