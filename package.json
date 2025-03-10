@@ -1,6 +1,6 @@
 {
   "name": "@danydev/pm-js",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "pm": "./cli_mode/start.js"
+    "postman": "./cli_mode/start.js"
   },
   "dependencies": {
     "axios": "^1.7.9"
